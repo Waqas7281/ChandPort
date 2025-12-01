@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-
 import { motion, useScroll, useTransform } from "framer-motion";
-
 import {
   Github,
   Linkedin,
@@ -27,6 +25,15 @@ export default function Portfolio() {
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
+
+  const images = [
+    "./chand.jpeg",
+    "./chand3.jpeg",
+    "./chand4.jpeg",
+    "./chand5.jpeg",
+    "./chand6.jpeg",
+    "./chand7.jpeg",
+  ];
 
   const projects = [
     {
@@ -155,7 +162,6 @@ export default function Portfolio() {
             >
               Portfolio
             </motion.div>
-
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center gap-8">
               {["Home", "About", "Projects", "Skills", "Contact"].map(
@@ -180,7 +186,6 @@ export default function Portfolio() {
                 Resume
               </motion.button>
             </div>
-
             {/* Mobile Menu Button */}
             <button
               className="md:hidden text-white"
@@ -194,7 +199,6 @@ export default function Portfolio() {
             </button>
           </div>
         </div>
-
         {/* Mobile Menu */}
         {isMenuOpen && (
           <motion.div
@@ -237,7 +241,7 @@ export default function Portfolio() {
               transition={{ delay: 0.2 }}
               className="text-purple-400 font-semibold mb-4"
             >
-              👋 Hello, I'm
+              Hello, I'm
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -265,7 +269,6 @@ export default function Portfolio() {
               experiences. Passionate about building innovative solutions that
               make a difference.
             </motion.p>
-
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -287,7 +290,6 @@ export default function Portfolio() {
                 Contact Me
               </motion.button>
             </motion.div>
-
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -311,7 +313,6 @@ export default function Portfolio() {
               ))}
             </motion.div>
           </motion.div>
-
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -320,13 +321,74 @@ export default function Portfolio() {
           >
             <div className="relative z-10">
               <img
-                src="./chand.jpeg"
+                src="./chand3.jpeg"
                 alt="Profile"
-                className="rounded-3xl shadow-2xl shadow-purple-500/20"
+                className="rounded-3xl shadow-2xl shadow-purple-500/20 w-full max-w-lg mx-auto"
               />
               <div className="absolute -bottom-6 -right-6 w-72 h-72 bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl -z-10 blur-2xl opacity-50"></div>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* INFINITE AUTO-SCROLLING COLLAGE SLIDER */}
+      <section className="py-20 px-4 bg-slate-900/30">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
+            Creative Moments
+          </h2>
+
+          {/* First Row - Left to Right */}
+          <div className="overflow-hidden">
+            <motion.div
+              className="flex gap-8"
+              animate={{ x: [0, -2000] }}
+              transition={{
+                x: {
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  duration: 40,
+                  ease: "linear",
+                },
+              }}
+            >
+              {[...images, ...images].map((src, i) => (
+                <div key={i} className="flex-shrink-0 w-80">
+                  <img
+                    src={src}
+                    alt="Gallery"
+                    className="w-full h-64 md:h-80 object-cover rounded-2xl shadow-2xl shadow-purple-500/20 hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Second Row - Right to Left (Reverse Direction) */}
+          <div className="overflow-hidden mt-12">
+            <motion.div
+              className="flex gap-8"
+              animate={{ x: [-2000, 0] }}
+              transition={{
+                x: {
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  duration: 45,
+                  ease: "linear",
+                },
+              }}
+            >
+              {[...images.reverse(), ...images.reverse()].map((src, i) => (
+                <div key={i} className="flex-shrink-0 w-72">
+                  <img
+                    src={src}
+                    alt="Gallery reverse"
+                    className="w-full h-60 md:h-72 object-cover rounded-2xl shadow-2xl shadow-pink-500/20 hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -342,7 +404,6 @@ export default function Portfolio() {
             <h2 className="text-4xl md:text-5xl font-bold mb-4">About Me</h2>
             <div className="w-20 h-1 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto"></div>
           </motion.div>
-
           <div className="grid md:grid-cols-3 gap-8 mb-16">
             {[
               {
@@ -429,7 +490,6 @@ export default function Portfolio() {
             </h2>
             <div className="w-20 h-1 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto"></div>
           </motion.div>
-
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
               <motion.div
@@ -452,13 +512,11 @@ export default function Portfolio() {
                     {project.category}
                   </div>
                 </div>
-
                 <div className="p-6">
                   <h3 className="text-xl font-bold mb-2">{project.title}</h3>
                   <p className="text-slate-400 mb-4 text-sm">
                     {project.description}
                   </p>
-
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.technologies.map((tech, i) => (
                       <span
@@ -469,7 +527,6 @@ export default function Portfolio() {
                       </span>
                     ))}
                   </div>
-
                   <div className="flex gap-4">
                     <motion.a
                       href={project.link}
@@ -511,7 +568,6 @@ export default function Portfolio() {
             </h2>
             <div className="w-20 h-1 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto"></div>
           </motion.div>
-
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {skills.map((skill, index) => (
               <motion.div
@@ -557,7 +613,6 @@ export default function Portfolio() {
               Have a project in mind? Let's work together!
             </p>
           </motion.div>
-
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -587,7 +642,6 @@ export default function Portfolio() {
                   />
                 </div>
               </div>
-
               <div>
                 <label className="block text-sm font-semibold mb-2">
                   Subject
@@ -598,7 +652,6 @@ export default function Portfolio() {
                   placeholder="Project discussion"
                 />
               </div>
-
               <div>
                 <label className="block text-sm font-semibold mb-2">
                   Message
@@ -609,7 +662,6 @@ export default function Portfolio() {
                   placeholder="Tell me about your project..."
                 ></textarea>
               </div>
-
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -626,7 +678,7 @@ export default function Portfolio() {
       <footer className="py-8 px-4 border-t border-slate-800">
         <div className="max-w-7xl mx-auto text-center">
           <p className="text-slate-400">
-            © 2025 Alex Johnson. Built with React & TailwindCSS
+            © 2025 Chand Shah. Built with React & TailwindCSS
           </p>
         </div>
       </footer>
